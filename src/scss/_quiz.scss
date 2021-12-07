@@ -1,0 +1,38 @@
+.quiz--container {
+}
+
+.quiz {
+  font-family: Karla;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 19px;
+  padding-block: 15px;
+  border-bottom: 1px solid $blue-line;
+
+  & > p {
+    margin-bottom: 12px;
+  }
+
+  & > .answers {
+    display: flex;
+    gap: 13px;
+    font-family: Inter;
+    font-weight: 500;
+    font-size: 14px;
+
+    text-align: center;
+    span {
+      border: 1px solid $blue-font;
+      border-radius: 10px;
+      padding: 10px;
+      cursor: pointer;
+    }
+  }
+}
+
+.center-btn {
+  display: grid;
+  place-items: center;
+  margin-top: 20px;
+}
