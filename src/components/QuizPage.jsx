@@ -1,51 +1,79 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+
 import Quiz from "./Quiz";
 import Button from "./Button";
 
 function QuizPage(props) {
-  const [quizData, setQuizData] = useState();
-  //const [questionsArray, setQuestionArray] = useState([]);
-  useEffect(() => {
-    async function getQuiz() {
-      const res = await fetch(
-        "https://opentdb.com/api.php?amount=5&category=31"
-      );
-      const data = await res.json();
-      setQuizData(data);
-    }
-    getQuiz();
-  }, [props.isQuizON]);
+  const [questionsArray, setQuestionsArray] = useState(props.quizData);
+  const [check, setCheck] = useState(false);
+  const [counter, setCounter] = useState(0);
 
-  let arrayShuffle = function (arr) {
-    let newPos, temp;
+  // Select answer
+  function selectAnswer(id, answerId) {
+    setQuestionsArray(prevQuestions => {
+      let array = [];
+      prevQuestions.forEach(question => {
+        if (question.id !== id) {
+          array.push(question);
+        } else {
+          let anserArr = [];
 
-    for (let i = arr.length - 1; i > 0; i--) {
-      newPos = Math.floor(Math.random() * (i + 1));
-      temp = arr[i];
-      arr[i] = arr[newPos];
-      arr[newPos] = temp;
-    }
-    return arr;
-  };
+          question.answers.forEach(answer => {
+            if (answerId === answer.id) {
+              anserArr.push({ ...answer, selected: !answer.selected });
+            } else {
+              anserArr.push({ ...answer, selected: false });
+            }
+          });
 
-  let quizElements = [];
-
-  if (quizData) {
-    quizData.results.forEach(item => {
-      const questionsArray = [item.correct_answer, ...item.incorrect_answers];
-      const answers = arrayShuffle(questionsArray);
-
-      quizElements.push(
-        <Quiz key={item.question} question={item.question} answers={answers} />
-      );
+          array.push({ ...question, answers: anserArr });
+        }
+      });
+      return array;
     });
   }
 
+  // Checks how many questions you answered right
+  function CheckAnswers() {
+    setCounter(0);
+    questionsArray.forEach(questions => {
+      questions.answers.forEach(answer => {
+        if (answer.selected) {
+          answer.answer === questions.correct_answer
+            ? setCounter(prev => prev + 1)
+            : setCounter(prev => prev + 0);
+        }
+      });
+    });
+    console.log(counter);
+    setCheck(true);
+  }
+
+  const quizElements = questionsArray.map(question => (
+    <Quiz
+      key={question.id}
+      id={question.id}
+      question={question.question}
+      answers={question.answers}
+      selectAnswer={selectAnswer}
+      check={check}
+      correct={question.correct_answer}
+    />
+  ));
+
   return (
     <div className="quiz--container">
-      {quizData ? quizElements : ""}
+      {quizElements}
       <div className="center-btn">
-        <Button btnText="Check answers" />
+        {check && (
+          <p className="score">You scored {counter}/5 correct answers</p>
+        )}
+
+        {!check ? (
+          <Button btnText="Check answers" handleClick={CheckAnswers} />
+        ) : (
+          <Button btnText="Play again" handleClick={props.newGame} />
+        )}
       </div>
     </div>
   );
