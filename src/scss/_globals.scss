@@ -7,11 +7,11 @@ body {
   font-size: 16px;
   display: grid;
   place-items: center;
-  overflow: hidden;
 }
 
 .main {
   overflow: hidden;
+  padding-bottom: 1.5rem;
 }
 
 .main::before {
@@ -28,7 +28,7 @@ body {
 }
 
 .main::after {
-  position: absolute;
+  position: fixed;
   content: "";
   background-image: url("../images/blob-baby.png");
   width: 148px;

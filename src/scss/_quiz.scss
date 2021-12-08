@@ -1,15 +1,22 @@
 .quiz--container {
   padding-inline: 20px;
+
+  @include breakpoint-down(sm) {
+    padding-inline: 10px;
+  }
 }
 
 .quiz {
   font-family: Karla;
   font-style: normal;
   font-weight: 700;
-  font-size: 16px;
   line-height: 19px;
   padding-block: 15px;
   border-bottom: 1px solid $blue-line;
+
+  @include breakpoint-down(sm) {
+    font-size: 14px;
+  }
 
   & > p {
     margin-bottom: 12px;
@@ -22,11 +29,22 @@
     font-weight: 500;
     font-size: 14px;
 
+    @include breakpoint-down(sm) {
+      font-size: 10px;
+      gap: 8px;
+    }
+
     text-align: center;
     span {
       border-radius: 10px;
       padding: 10px;
       cursor: pointer;
+
+      @include breakpoint-down(sm) {
+        font-size: 10px;
+        padding-block: 5px;
+        padding-inline: 3px;
+      }
     }
   }
 }
