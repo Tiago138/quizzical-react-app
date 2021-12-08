@@ -1,4 +1,5 @@
 .quiz--container {
+  padding-inline: 20px;
 }
 
 .quiz {
@@ -23,16 +24,48 @@
 
     text-align: center;
     span {
-      border: 1px solid $blue-font;
       border-radius: 10px;
       padding: 10px;
       cursor: pointer;
     }
   }
 }
+.score {
+  font-family: Inter;
+  font-weight: 700;
+  font-size: 12.8px;
+  line-height: 15px;
+  text-align: center;
+}
 
 .center-btn {
-  display: grid;
-  place-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
   margin-top: 20px;
+  grid-row: auto;
+}
+
+.correct--selected {
+  background-color: $green;
+}
+
+.correct--not--selected {
+  background-color: $red;
+  opacity: 0.5;
+}
+
+.not--selected--checked {
+  border: 1px solid $blue-font-op;
+  opacity: 0.5;
+}
+
+.not--selected {
+  border: 1px solid $blue-font;
+}
+
+.selected {
+  border: 1px solid $blue-selected;
+  background-color: $blue-selected;
 }

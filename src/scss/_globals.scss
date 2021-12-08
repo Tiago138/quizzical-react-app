@@ -7,6 +7,37 @@ body {
   font-size: 16px;
   display: grid;
   place-items: center;
+  overflow: hidden;
+}
+
+.main {
+  overflow: hidden;
+}
+
+.main::before {
+  position: absolute;
+  content: "";
+  background-image: url("../images/blob-lemony.png");
+  width: 158px;
+  height: 141px;
+  top: 0px;
+  right: 0px;
+  z-index: -1;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.main::after {
+  position: absolute;
+  content: "";
+  background-image: url("../images/blob-baby.png");
+  width: 148px;
+  height: 118px;
+  bottom: 0px;
+  left: 0px;
+  z-index: -1;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .btn {
